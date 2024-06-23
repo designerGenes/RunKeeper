@@ -27,6 +27,6 @@ struct RunkeeperApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(for: [Run.self, RunManager.self])
     }
 }
