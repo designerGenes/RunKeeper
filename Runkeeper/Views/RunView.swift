@@ -106,31 +106,15 @@ struct RunView: View {
     }
     
     private static func generateBackgroundImageName() -> String {
-        let locations = ["park", "beach", "forest", "mountainPath", "cyberpunkCity"]
-        let weather = ["sunny", "rainy", "hurricane", "misty"]
-        
-        let location = locations.randomElement()!
-        let timeOfDay = getCurrentTimeOfDay()
-        let currentWeather = weather.randomElement()!
-        let number = String(format: "%02d", Int.random(in: 0...10))
-        
-        return "\(location)_\(timeOfDay)_\(currentWeather)_\(number)"
+        let isDayTime = isDaytime()
+        let timeOfDay = isDayTime ? "day" : "night"
+        let imageNumber = String(format: "%02d", Int.random(in: 0...15))
+        return "\(timeOfDay)_\(imageNumber)"
     }
     
-    private static func getCurrentTimeOfDay() -> String {
+    private static func isDaytime() -> Bool {
         let hour = Calendar.current.component(.hour, from: Date())
-        switch hour {
-        case 6..<12:
-            return "morning"
-        case 12..<14:
-            return "noon"
-        case 14..<18:
-            return "afternoon"
-        case 18..<21:
-            return "twilight"
-        default:
-            return "night"
-        }
+        return hour >= 6 && hour < 18 // Assuming daytime is from 6 AM to 6 PM
     }
     
     private func calculateImageOffset(_ geometry: GeometryProxy) -> CGFloat {
