@@ -25,6 +25,10 @@ extension SegmentRecord {
             return "Run"
         case .walk:
             return "Walk"
+        case .coolDown:
+            return "Cool down"
+        case .warmUp:
+            return "Warm up"
         }
     }
 }

@@ -4,7 +4,7 @@ struct Run: Codable, Identifiable {
     let id: UUID
     let week: Int
     let day: Int
-    let segments: [RunSegment]
+    var segments: [RunSegment]
 
     enum CodingKeys: String, CodingKey {
         case segments
@@ -18,6 +18,10 @@ struct Run: Codable, Identifiable {
         id = UUID()
         week = 0  // These will be set later
         day = 0   // These will be set later
+
+        // Add warm-up and cool-down segments
+        segments.insert(RunSegment(segmentType: .warmUp, duration: 300), at: 0)
+        segments.append(RunSegment(segmentType: .coolDown, duration: 300))
     }
 
     init(week: Int, day: Int, segments: [RunSegment]) {
@@ -25,6 +29,10 @@ struct Run: Codable, Identifiable {
         self.week = week
         self.day = day
         self.segments = segments
+
+        // Add warm-up and cool-down segments
+        self.segments.insert(RunSegment(segmentType: .warmUp, duration: 300), at: 0)
+        self.segments.append(RunSegment(segmentType: .coolDown, duration: 300))
     }
 }
 
@@ -39,6 +47,8 @@ struct RunSegment: Codable {
 }
 
 enum SegmentType: String, Codable {
+    case warmUp
     case run
     case walk
+    case coolDown
 }
