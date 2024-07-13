@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class RunManager: ObservableObject {
+final class RunManager {
     @Relationship(deleteRule: .cascade) var runs: [Run]
     
     init() {
@@ -49,30 +49,5 @@ final class RunManager: ObservableObject {
             segments.append(Segment(type: .walk, duration: walkDuration))
         }
         return segments
-    }
-    
-    func getNextRun() -> Run? {
-        runs.first { !$0.isCompleted }
-    }
-    
-    func markRunAsCompleted(_ run: Run) {
-        if let index = runs.firstIndex(where: { $0.week == run.week && $0.runNumber == run.runNumber }) {
-            runs[index].isCompleted = true
-            runs[index].endDate = Date()
-        }
-    }
-    
-    func startRun(_ run: Run) {
-        if let index = runs.firstIndex(where: { $0.week == run.week && $0.runNumber == run.runNumber }) {
-            runs[index].startDate = Date()
-        }
-    }
-    
-    func resetProgress() {
-        for index in runs.indices {
-            runs[index].isCompleted = false
-            runs[index].startDate = nil
-            runs[index].endDate = nil
-        }
     }
 }

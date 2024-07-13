@@ -2,7 +2,9 @@ import SwiftUI
 import SwiftData
 
 struct SelectRunView: View {
-    @ObservedObject var runManager: RunManager
+    @ObservedObject var viewModel: RunManagerViewModel
+    @State private var scrollProxy: ScrollViewProxy?
+    @State private var nextRunId: String = ""
     
     var body: some View {
         GeometryReader { geometry in
@@ -13,22 +15,30 @@ struct SelectRunView: View {
                 
                 Spacer()
                 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(spacing: 15) {
-                        ForEach(runManager.runs.sorted { $0.week * 10 + $0.runNumber < $1.week * 10 + $1.runNumber }) { run in
-                            NavigationLink(destination: RunView(runManager: runManager, run: run)) {
-                                RunSquare(run: run)
+                ScrollViewReader { proxy in
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack(spacing: 15) {
+                            ForEach(viewModel.runManager.runs.sorted { ($0.week * 10 + $0.runNumber) < ($1.week * 10 + $1.runNumber) }) { run in
+                                NavigationLink(destination: RunView(viewModel: viewModel, run: run)) {
+                                    RunSquare(run: run)
+                                }
+                                .id("\(run.week)-\(run.runNumber)")
                             }
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
+                    .frame(height: geometry.size.height * 0.2)
+                    .padding(.bottom, geometry.size.height * 0.05)
+                    .onAppear {
+                        scrollProxy = proxy
+                        scrollToNextRun()
+                    }
                 }
-                .frame(height: geometry.size.height * 0.2)
-                .padding(.bottom, geometry.size.height * 0.05)
             }
         }
         .background(backgroundGradient)
         .navigationTitle("Select a Run")
+        .onAppear(perform: scrollToNextRun)
     }
     
     private var backgroundGradient: some View {
@@ -47,10 +57,21 @@ struct SelectRunView: View {
     }
     
     private func getEncouragingMessage() -> String {
-        if let nextRun = runManager.getNextRun() {
+        if let nextRun = viewModel.getNextRun() {
             return "Next up: Week \(nextRun.week), Day \(nextRun.runNumber)\nYou've got this!"
         } else {
             return "Congratulations! You've completed all runs!"
+        }
+    }
+    
+    private func scrollToNextRun() {
+        if let nextRun = viewModel.getNextRun() {
+            nextRunId = "\(nextRun.week)-\(nextRun.runNumber)"
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                withAnimation {
+                    scrollProxy?.scrollTo(nextRunId, anchor: .leading)
+                }
+            }
         }
     }
 }
@@ -78,6 +99,6 @@ struct RunSquare: View {
 
 #Preview {
     NavigationView {
-        SelectRunView(runManager: RunManager())
+        SelectRunView(viewModel: RunManagerViewModel(modelContext: ModelContext(try! ModelContainer(for: Run.self, RunManager.self))))
     }
 }

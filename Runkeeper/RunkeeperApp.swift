@@ -5,13 +5,9 @@ import SwiftData
 struct RunkeeperApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                SelectRunView(viewModel: RunManagerViewModel(modelContext: ModelContext(try! ModelContainer(for: Run.self, RunManager.self))))
+            }
         }
-        .modelContainer(for: [Run.self, RunManager.self, Segment.self])
     }
-}
-
-#Preview {
-    ContentView()
-        .modelContainer(for: [Run.self, RunManager.self, Segment.self], inMemory: true)
 }

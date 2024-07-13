@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct RunView: View {
-    @ObservedObject var runManager: RunManager
+    @ObservedObject var viewModel: RunManagerViewModel
     let run: Run
     
     @State private var isRunning = false
@@ -130,6 +130,7 @@ struct RunView: View {
     
     private func startTimer() {
         isRunning = true
+        viewModel.markRunAsIncomplete(run)
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             if elapsedTime < run.totalDuration {
                 elapsedTime += 1
@@ -161,7 +162,7 @@ struct RunView: View {
     
     private func completeRun() {
         stopRun()
-        runManager.markRunAsCompleted(run)
+        viewModel.markRunAsCompleted(run)
     }
     
     private func timeString(time: TimeInterval) -> String {
@@ -172,8 +173,9 @@ struct RunView: View {
 }
 
 #Preview {
-    RunView(runManager: RunManager(), run: Run(week: 1, runNumber: 1, totalDuration: 1200, segments: [
-        Segment(type: .run, duration: 60),
-        Segment(type: .walk, duration: 120)
-    ]))
+    RunView(viewModel: RunManagerViewModel(modelContext: ModelContext(try! ModelContainer(for: Run.self, RunManager.self))),
+            run: Run(week: 1, runNumber: 1, totalDuration: 1200, segments: [
+                Segment(type: .run, duration: 60),
+                Segment(type: .walk, duration: 120)
+            ]))
 }
