@@ -1,16 +1,9 @@
-//
-//  RunManager.swift
-//  Runkeeper
-//
-//  Created by Jaden Nation on 6/23/24.
-//
-
 import Foundation
 import SwiftData
 
 @Model
-class RunManager: ObservableObject {
-    var runs: [Run]
+final class RunManager: ObservableObject {
+    @Relationship(deleteRule: .cascade) var runs: [Run]
     
     init() {
         self.runs = RunManager.createInitialRuns()
@@ -30,50 +23,18 @@ class RunManager: ObservableObject {
     }
     
     static func createRun(for week: Int, runNumber: Int) -> Run {
-        // This is a simplified version. You may want to adjust the difficulty progression.
-        let totalDuration: TimeInterval = 20 * 60 // 20 minutes
+        let totalDuration: TimeInterval = 30 * 60 // 30 minutes
         var segments: [Segment] = []
         
         switch week {
-        case 1:
-            // Week 1: 1 minute run, 2 minutes walk
-            for _ in 1...7 {
-                segments.append(Segment(type: .run, duration: 60))
-                segments.append(Segment(type: .walk, duration: 120))
-            }
-        case 2:
-            // Week 2: 1.5 minutes run, 2 minutes walk
-            for _ in 1...6 {
-                segments.append(Segment(type: .run, duration: 90))
-                segments.append(Segment(type: .walk, duration: 120))
-            }
-        case 3:
-            // Week 3: 2 minutes run, 1.5 minutes walk
-            for _ in 1...6 {
-                segments.append(Segment(type: .run, duration: 120))
-                segments.append(Segment(type: .walk, duration: 90))
-            }
-        case 4:
-            // Week 4: 3 minutes run, 1.5 minutes walk
-            for _ in 1...5 {
-                segments.append(Segment(type: .run, duration: 180))
-                segments.append(Segment(type: .walk, duration: 90))
-            }
-        case 5:
-            // Week 5: 5 minutes run, 1 minute walk
-            for _ in 1...4 {
-                segments.append(Segment(type: .run, duration: 300))
-                segments.append(Segment(type: .walk, duration: 60))
-            }
-        case 6:
-            // Week 6: 8 minutes run, 1 minute walk
-            for _ in 1...3 {
-                segments.append(Segment(type: .run, duration: 480))
-                segments.append(Segment(type: .walk, duration: 60))
-            }
+        case 1...2:
+            segments = createSegments(runDuration: 60, walkDuration: 90, count: 8)
+        case 3...4:
+            segments = createSegments(runDuration: 90, walkDuration: 90, count: 6)
+        case 5...6:
+            segments = createSegments(runDuration: 180, walkDuration: 60, count: 5)
         case 7:
-            // Week 7: 20 minutes continuous run
-            segments.append(Segment(type: .run, duration: 1200))
+            segments = [Segment(type: .run, duration: totalDuration)]
         default:
             break
         }
@@ -81,13 +42,37 @@ class RunManager: ObservableObject {
         return Run(week: week, runNumber: runNumber, totalDuration: totalDuration, segments: segments)
     }
     
+    static func createSegments(runDuration: TimeInterval, walkDuration: TimeInterval, count: Int) -> [Segment] {
+        var segments: [Segment] = []
+        for _ in 1...count {
+            segments.append(Segment(type: .run, duration: runDuration))
+            segments.append(Segment(type: .walk, duration: walkDuration))
+        }
+        return segments
+    }
+    
     func getNextRun() -> Run? {
-        return runs.first { !$0.isCompleted }
+        runs.first { !$0.isCompleted }
     }
     
     func markRunAsCompleted(_ run: Run) {
         if let index = runs.firstIndex(where: { $0.week == run.week && $0.runNumber == run.runNumber }) {
             runs[index].isCompleted = true
+            runs[index].endDate = Date()
+        }
+    }
+    
+    func startRun(_ run: Run) {
+        if let index = runs.firstIndex(where: { $0.week == run.week && $0.runNumber == run.runNumber }) {
+            runs[index].startDate = Date()
+        }
+    }
+    
+    func resetProgress() {
+        for index in runs.indices {
+            runs[index].isCompleted = false
+            runs[index].startDate = nil
+            runs[index].endDate = nil
         }
     }
 }

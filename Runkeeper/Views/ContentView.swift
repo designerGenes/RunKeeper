@@ -8,11 +8,19 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            SelectRunView(runManager: runManagers.first ?? RunManager())
-                .tabItem {
-                    Label("Runs", systemImage: "list.bullet")
-                }
-                .tag(0)
+            if let runManager = runManagers.first {
+                SelectRunView(runManager: runManager)
+                    .tabItem {
+                        Label("Runs", systemImage: "list.bullet")
+                    }
+                    .tag(0)
+            } else {
+                ProgressView("Loading...")
+                    .tabItem {
+                        Label("Runs", systemImage: "list.bullet")
+                    }
+                    .tag(0)
+            }
             
             SettingsView()
                 .tabItem {
@@ -20,11 +28,19 @@ struct ContentView: View {
                 }
                 .tag(1)
         }
-        .onAppear {
-            if runManagers.isEmpty {
-                let newManager = RunManager()
-                modelContext.insert(newManager)
-            }
+        .onAppear(perform: initializeRunManager)
+    }
+    
+    private func initializeRunManager() {
+        if runManagers.isEmpty {
+            let newManager = RunManager()
+            modelContext.insert(newManager)
+            try? modelContext.save()
         }
     }
+}
+
+#Preview {
+    ContentView()
+        .modelContainer(for: [Run.self, RunManager.self], inMemory: true)
 }

@@ -1,102 +1,83 @@
-//
-//  SelectRunView.swift
-//  Runkeeper
-//
-//  Created by Jaden Nation on 6/23/24.
-//
-
-import SwiftUI
-import SwiftData
-
 import SwiftUI
 import SwiftData
 
 struct SelectRunView: View {
     @ObservedObject var runManager: RunManager
-    @State private var selectedRun: Run?
-    @State private var showRunView = false
     
     var body: some View {
-        NavigationView {
+        GeometryReader { geometry in
             VStack {
-                Text("Select a Run")
-                    .font(.largeTitle)
-                    .padding()
+                Spacer()
                 
-                if let nextRun = runManager.getNextRun() {
-                    Text("Next Run: Week \(nextRun.week), Day \(nextRun.runNumber)")
-                        .font(.headline)
-                        .padding()
-                } else {
-                    Text("All runs completed!")
-                        .font(.headline)
-                        .padding()
-                }
+                encouragingMessage
+                
+                Spacer()
                 
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 20) {
-                        ForEach(groupRunsByWeek().sorted(by: { $0.key < $1.key }), id: \.key) { week, runs in
-                            WeekView(week: week, runs: runs, onRunSelected: { run in
-                                selectedRun = run
-                                showRunView = true
-                            })
+                    LazyHStack(spacing: 15) {
+                        ForEach(runManager.runs.sorted { $0.week * 10 + $0.runNumber < $1.week * 10 + $1.runNumber }) { run in
+                            NavigationLink(destination: RunView(runManager: runManager, run: run)) {
+                                RunSquare(run: run)
+                            }
                         }
                     }
-                    .padding()
+                    .padding(.horizontal)
                 }
+                .frame(height: geometry.size.height * 0.2)
+                .padding(.bottom, geometry.size.height * 0.05)
             }
         }
-        .sheet(isPresented: $showRunView) {
-            if let run = selectedRun {
-                RunView(runManager: runManager, run: run)
-            }
-        }
+        .background(backgroundGradient)
+        .navigationTitle("Select a Run")
     }
     
-    private func groupRunsByWeek() -> [Int: [Run]] {
-        Dictionary(grouping: runManager.runs, by: { $0.week })
+    private var backgroundGradient: some View {
+        LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.6), Color.purple.opacity(0.6)]),
+                       startPoint: .topLeading,
+                       endPoint: .bottomTrailing)
+            .edgesIgnoringSafeArea(.all)
+    }
+    
+    private var encouragingMessage: some View {
+        Text(getEncouragingMessage())
+            .font(.title)
+            .fontWeight(.bold)
+            .multilineTextAlignment(.center)
+            .padding()
+    }
+    
+    private func getEncouragingMessage() -> String {
+        if let nextRun = runManager.getNextRun() {
+            return "Next up: Week \(nextRun.week), Day \(nextRun.runNumber)\nYou've got this!"
+        } else {
+            return "Congratulations! You've completed all runs!"
+        }
     }
 }
 
-struct WeekView: View {
-    let week: Int
-    let runs: [Run]
-    let onRunSelected: (Run) -> Void
+struct RunSquare: View {
+    let run: Run
     
     var body: some View {
-        VStack(spacing: 10) {
-            Text("Week \(week)")
-                .font(.title2)
-                .fontWeight(.bold)
+        VStack {
+            Text("Week \(run.week)")
+                .font(.headline)
+            Text("Day \(run.runNumber)")
+                .font(.subheadline)
             
-            ForEach(runs.sorted { $0.runNumber < $1.runNumber }) { run in
-                RunButton(run: run, onTap: onRunSelected)
+            if run.isCompleted {
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundColor(.green)
             }
         }
-        .padding()
-        .background(Color.gray.opacity(0.1))
+        .frame(width: 80, height: 80)
+        .background(run.isCompleted ? Color.green.opacity(0.2) : Color.blue.opacity(0.2))
         .cornerRadius(10)
     }
 }
 
-struct RunButton: View {
-    let run: Run
-    let onTap: (Run) -> Void
-    
-    var body: some View {
-        Button(action: { onTap(run) }) {
-            VStack {
-                Text("Day \(run.runNumber)")
-                    .font(.headline)
-                
-                if run.isCompleted {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(.green)
-                }
-            }
-            .frame(width: 80, height: 80)
-            .background(run.isCompleted ? Color.green.opacity(0.2) : Color.blue.opacity(0.2))
-            .cornerRadius(10)
-        }
+#Preview {
+    NavigationView {
+        SelectRunView(runManager: RunManager())
     }
 }
