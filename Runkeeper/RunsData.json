@@ -1,0 +1,542 @@
+[
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 60
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 60
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 60
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 60
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 60
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 60
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 60
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 60
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 60
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 60
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 60
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 60
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 60
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 60
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 60
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 120
+            },
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 120
+            },
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 120
+            },
+            {
+                "type": "walk",
+                "duration": 120
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 120
+            },
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 120
+            },
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 120
+            },
+            {
+                "type": "walk",
+                "duration": 120
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 120
+            },
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 120
+            },
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 120
+            },
+            {
+                "type": "walk",
+                "duration": 120
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 180
+            },
+            {
+                "type": "walk",
+                "duration": 180
+            },
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 180
+            },
+            {
+                "type": "walk",
+                "duration": 180
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 180
+            },
+            {
+                "type": "walk",
+                "duration": 180
+            },
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 180
+            },
+            {
+                "type": "walk",
+                "duration": 180
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 180
+            },
+            {
+                "type": "walk",
+                "duration": 180
+            },
+            {
+                "type": "run",
+                "duration": 90
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 180
+            },
+            {
+                "type": "walk",
+                "duration": 180
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 180
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 300
+            },
+            {
+                "type": "walk",
+                "duration": 150
+            },
+            {
+                "type": "run",
+                "duration": 180
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 300
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 180
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 300
+            },
+            {
+                "type": "walk",
+                "duration": 150
+            },
+            {
+                "type": "run",
+                "duration": 180
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 300
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 180
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 300
+            },
+            {
+                "type": "walk",
+                "duration": 150
+            },
+            {
+                "type": "run",
+                "duration": 180
+            },
+            {
+                "type": "walk",
+                "duration": 90
+            },
+            {
+                "type": "run",
+                "duration": 300
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 300
+            },
+            {
+                "type": "walk",
+                "duration": 180
+            },
+            {
+                "type": "run",
+                "duration": 300
+            },
+            {
+                "type": "walk",
+                "duration": 180
+            },
+            {
+                "type": "run",
+                "duration": 300
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 480
+            },
+            {
+                "type": "walk",
+                "duration": 300
+            },
+            {
+                "type": "run",
+                "duration": 480
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 1200
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 300
+            },
+            {
+                "type": "walk",
+                "duration": 180
+            },
+            {
+                "type": "run",
+                "duration": 480
+            },
+            {
+                "type": "walk",
+                "duration": 180
+            },
+            {
+                "type": "run",
+                "duration": 300
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 600
+            },
+            {
+                "type": "walk",
+                "duration": 180
+            },
+            {
+                "type": "run",
+                "duration": 600
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 1320
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 1500
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 1500
+            }
+        ]
+    },
+    {
+        "segments": [
+            {
+                "type": "run",
+                "duration": 1500
+            }
+        ]
+    }
+]

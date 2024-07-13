@@ -4,10 +4,11 @@ struct SettingsView: View {
     @AppStorage("useMetricSystem") private var useMetricSystem = true
     @AppStorage("useAIVoice") private var useAIVoice = false
     @AppStorage("allowWidget") private var allowWidget = true
+    @AppStorage("themeColorString") private var themeColorString = "blue"
     @State private var showingAboutSheet = false
-    @State private var selectedThemeColor = Color.blue
+    @EnvironmentObject private var themeManager: ThemeManager
 
-    private let themeColors: [Color] = [.blue, .green, .red, .purple, .orange]
+    private let themeColors = ["blue", "green", "red", "purple", "orange"]
 
     var body: some View {
         NavigationView {
@@ -19,21 +20,21 @@ struct SettingsView: View {
                 }
 
                 Section(header: Text("Theme")) {
-                    HStack {
-                        Text("Choose theme color")
-                        Spacer()
-                        ForEach(themeColors, id: \.self) { color in
-                            Circle()
-                                .fill(color)
-                                .frame(width: 30, height: 30)
-                                .overlay(
-                                    Circle()
-                                        .stroke(Color.primary, lineWidth: selectedThemeColor == color ? 2 : 0)
-                                )
-                                .onTapGesture {
-                                    selectedThemeColor = color
-                                }
+                    Picker("Choose theme color", selection: $themeColorString) {
+                        ForEach(themeColors, id: \.self) { colorString in
+                            HStack {
+                                Circle()
+                                    .fill(Color(colorString))
+                                    .frame(width: 20, height: 20)
+                                Text(colorString.capitalized)
+                            }
+                            .tag(colorString)
                         }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .onChange(of: themeColorString) { _ in
+                        // Trigger UI update
+                        themeManager.objectWillChange.send()
                     }
                 }
 
@@ -94,4 +95,5 @@ struct AboutView: View {
 
 #Preview {
     SettingsView()
+        .environmentObject(ThemeManager())
 }

@@ -1,13 +1,8 @@
 import Foundation
 import SwiftData
 
-enum SegmentType: String, Codable {
-    case run
-    case walk
-}
-
 @Model
-final class Segment {
+final class SegmentRecord {
     let type: SegmentType
     let duration: TimeInterval
     
@@ -17,7 +12,7 @@ final class Segment {
     }
 }
 
-extension Segment {
+extension SegmentRecord {
     var formattedDuration: String {
         let minutes = Int(duration) / 60
         let seconds = Int(duration) % 60

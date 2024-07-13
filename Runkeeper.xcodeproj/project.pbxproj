@@ -8,13 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		A819CBED2C42C37500871A93 /* RunManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBEC2C42C37500871A93 /* RunManagerViewModel.swift */; };
+		A819CBF02C4313F300871A93 /* RunsData.json in Resources */ = {isa = PBXBuildFile; fileRef = A819CBEF2C4313F300871A93 /* RunsData.json */; };
+		A819CBF22C43144C00871A93 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBF12C43144C00871A93 /* Run.swift */; };
+		A819CBF42C431F3200871A93 /* GradientGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBF32C431F3200871A93 /* GradientGenerator.swift */; };
+		A819CBF62C431F4600871A93 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBF52C431F4600871A93 /* ThemeManager.swift */; };
 		A84E0D262C2860E100E12D8D /* RunkeeperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D252C2860E100E12D8D /* RunkeeperApp.swift */; };
 		A84E0D282C2860E100E12D8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D272C2860E100E12D8D /* ContentView.swift */; };
-		A84E0D2A2C2860E100E12D8D /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D292C2860E100E12D8D /* Item.swift */; };
 		A84E0D2C2C2860E300E12D8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A84E0D2B2C2860E300E12D8D /* Assets.xcassets */; };
 		A84E0D2F2C2860E300E12D8D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A84E0D2E2C2860E300E12D8D /* Preview Assets.xcassets */; };
-		A84E0D382C28610B00E12D8D /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D372C28610B00E12D8D /* Run.swift */; };
-		A84E0D3A2C28611C00E12D8D /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D392C28611C00E12D8D /* Segment.swift */; };
+		A84E0D382C28610B00E12D8D /* RunRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D372C28610B00E12D8D /* RunRecord.swift */; };
+		A84E0D3A2C28611C00E12D8D /* SegmentRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D392C28611C00E12D8D /* SegmentRecord.swift */; };
 		A84E0D3C2C28625000E12D8D /* RunManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D3B2C28625000E12D8D /* RunManager.swift */; };
 		A84E0D3E2C28628800E12D8D /* SelectRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D3D2C28628800E12D8D /* SelectRunView.swift */; };
 		A84E0D402C2862E600E12D8D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D3F2C2862E600E12D8D /* SettingsView.swift */; };
@@ -23,14 +26,17 @@
 
 /* Begin PBXFileReference section */
 		A819CBEC2C42C37500871A93 /* RunManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunManagerViewModel.swift; sourceTree = "<group>"; };
+		A819CBEF2C4313F300871A93 /* RunsData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = RunsData.json; path = Runkeeper/RunsData.json; sourceTree = SOURCE_ROOT; };
+		A819CBF12C43144C00871A93 /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
+		A819CBF32C431F3200871A93 /* GradientGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientGenerator.swift; sourceTree = "<group>"; };
+		A819CBF52C431F4600871A93 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		A84E0D222C2860E100E12D8D /* Runkeeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runkeeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A84E0D252C2860E100E12D8D /* RunkeeperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunkeeperApp.swift; sourceTree = "<group>"; };
 		A84E0D272C2860E100E12D8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		A84E0D292C2860E100E12D8D /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		A84E0D2B2C2860E300E12D8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A84E0D2E2C2860E300E12D8D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A84E0D372C28610B00E12D8D /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
-		A84E0D392C28611C00E12D8D /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
+		A84E0D372C28610B00E12D8D /* RunRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunRecord.swift; sourceTree = "<group>"; };
+		A84E0D392C28611C00E12D8D /* SegmentRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentRecord.swift; sourceTree = "<group>"; };
 		A84E0D3B2C28625000E12D8D /* RunManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunManager.swift; sourceTree = "<group>"; };
 		A84E0D3D2C28628800E12D8D /* SelectRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRunView.swift; sourceTree = "<group>"; };
 		A84E0D3F2C2862E600E12D8D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -48,6 +54,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A819CBEE2C4313E400871A93 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A819CBEF2C4313F300871A93 /* RunsData.json */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		A819CBF72C43238900871A93 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				A819CBF32C431F3200871A93 /* GradientGenerator.swift */,
+				A84E0D3B2C28625000E12D8D /* RunManager.swift */,
+				A819CBF52C431F4600871A93 /* ThemeManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		A84E0D192C2860E100E12D8D = {
 			isa = PBXGroup;
 			children = (
@@ -67,10 +91,11 @@
 		A84E0D242C2860E100E12D8D /* Runkeeper */ = {
 			isa = PBXGroup;
 			children = (
+				A819CBF72C43238900871A93 /* Managers */,
+				A819CBEE2C4313E400871A93 /* Assets */,
 				A84E0D362C2860FE00E12D8D /* Views */,
 				A84E0D352C2860F900E12D8D /* Models */,
 				A84E0D252C2860E100E12D8D /* RunkeeperApp.swift */,
-				A84E0D292C2860E100E12D8D /* Item.swift */,
 				A84E0D2B2C2860E300E12D8D /* Assets.xcassets */,
 				A84E0D2D2C2860E300E12D8D /* Preview Content */,
 			);
@@ -88,10 +113,10 @@
 		A84E0D352C2860F900E12D8D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A84E0D372C28610B00E12D8D /* Run.swift */,
-				A84E0D3B2C28625000E12D8D /* RunManager.swift */,
+				A84E0D372C28610B00E12D8D /* RunRecord.swift */,
 				A819CBEC2C42C37500871A93 /* RunManagerViewModel.swift */,
-				A84E0D392C28611C00E12D8D /* Segment.swift */,
+				A84E0D392C28611C00E12D8D /* SegmentRecord.swift */,
+				A819CBF12C43144C00871A93 /* Run.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -167,6 +192,7 @@
 			files = (
 				A84E0D2F2C2860E300E12D8D /* Preview Assets.xcassets in Resources */,
 				A84E0D2C2C2860E300E12D8D /* Assets.xcassets in Resources */,
+				A819CBF02C4313F300871A93 /* RunsData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,12 +207,14 @@
 				A84E0D282C2860E100E12D8D /* ContentView.swift in Sources */,
 				A84E0D402C2862E600E12D8D /* SettingsView.swift in Sources */,
 				A84E0D3C2C28625000E12D8D /* RunManager.swift in Sources */,
-				A84E0D3A2C28611C00E12D8D /* Segment.swift in Sources */,
-				A84E0D382C28610B00E12D8D /* Run.swift in Sources */,
+				A84E0D3A2C28611C00E12D8D /* SegmentRecord.swift in Sources */,
+				A84E0D382C28610B00E12D8D /* RunRecord.swift in Sources */,
 				A84E0D422C28631B00E12D8D /* RunView.swift in Sources */,
-				A84E0D2A2C2860E100E12D8D /* Item.swift in Sources */,
 				A84E0D3E2C28628800E12D8D /* SelectRunView.swift in Sources */,
+				A819CBF22C43144C00871A93 /* Run.swift in Sources */,
+				A819CBF42C431F3200871A93 /* GradientGenerator.swift in Sources */,
 				A84E0D262C2860E100E12D8D /* RunkeeperApp.swift in Sources */,
+				A819CBF62C431F4600871A93 /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,6 +3,7 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @StateObject private var themeManager = ThemeManager()
     @State private var selectedTab = 0
     
     var body: some View {
@@ -15,16 +16,19 @@ struct ContentView: View {
             }
             .tag(0)
             
-            SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gear")
-                }
-                .tag(1)
+            NavigationView {
+                SettingsView()
+            }
+            .tabItem {
+                Label("Settings", systemImage: "gear")
+            }
+            .tag(1)
         }
+        .environmentObject(themeManager)
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: [Run.self, RunManager.self], inMemory: true)
+        .modelContainer(for: [RunRecord.self, RunManager.self], inMemory: true)
 }
