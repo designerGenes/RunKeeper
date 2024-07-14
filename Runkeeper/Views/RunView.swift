@@ -17,24 +17,41 @@ struct RunView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack {
-                themeManager.backgroundGradient
-                    .ignoresSafeArea()
+            VStack(spacing: 0) {
+                RunProgressBar(segments: run?.segments ?? [], totalDuration: run?.totalDuration ?? 0, elapsedTime: elapsedTime)
+                    .frame(height: 120)
+                    .padding(.top)
                 
-                VStack {
-                    Spacer()
+                VStack(spacing: 10) {
+                    Text(segmentTypeString(for: currentSegment(run: run)?.segmentType ?? .walk))
+                        .font(.system(size: 48, weight: .bold))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
                     
-                    if let run = run {
-                        progressCircle(geometry: geometry, run: run)
-                        controlButtons
-                        segmentDescriptionText(run: run)
-                    } else {
-                        Text("Loading run data...")
-                    }
+                    Text(timeString(time: currentSegmentTimeRemaining(run: run)))
+                        .font(.system(size: 36, weight: .semibold))
                     
-                    Spacer()
+                    Text(timeString(time: totalTimeRemaining(run: run)))
+                        .font(.system(size: 24))
                 }
+                .padding(.vertical)
+                
+                RunSegmentDetailsView(
+                    segments: run?.segments ?? [],
+                    currentSegmentIndex: $currentSegmentIndex,
+                    onSegmentTap: { tappedIndex in
+                        jumpToSegment(run: run, index: tappedIndex)
+                    }
+                )
+                .frame(height: geometry.size.height * 0.3)
+                
+                Spacer()
+                
+                controlButtons
+                    .padding(.bottom)
             }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+            .background(themeManager.backgroundGradient.ignoresSafeArea())
         }
         .navigationTitle("Week \(runRecord.week), Day \(runRecord.day)")
         .navigationBarTitleDisplayMode(.inline)
@@ -55,124 +72,28 @@ struct RunView: View {
     }
     
     private var controlButtons: some View {
-        HStack {
+        HStack(spacing: 50) {
             Button(action: toggleRunning) {
-                Text(isRunning ? "Pause" : "Start")
-                    .font(.title)
-                    .padding()
-                    .frame(minWidth: 40)
-                    .background(isRunning ? Color.orange : Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                Image(systemName: isRunning ? "pause.fill" : "play.fill")
+                    .font(.system(size: 40))
+                    .foregroundColor(.primary)
             }
             
             Button(action: {
                 showingStopAlert = true
             }) {
-                Text("Stop")
-                    .font(.title)
-                    .padding()
-                    .frame(minWidth: 40)
-                    .background(Color.red)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                Image(systemName: "stop.fill")
+                    .font(.system(size: 40))
+                    .foregroundColor(.primary)
             }
         }
         .padding()
-        .background(Color.black.opacity(0.5))
+        .background(Color.black.opacity(0.1))
         .cornerRadius(15)
     }
     
-    private func progressCircle(geometry: GeometryProxy, run: Run) -> some View {
-        ZStack {
-            Circle()
-                .fill(Color.black.opacity(0.5))
-            
-            Circle()
-                .stroke(lineWidth: 20)
-                .opacity(0.3)
-                .foregroundColor(.gray)
-            
-            Circle()
-                .trim(from: 0.0, to: CGFloat(min(elapsedTime / run.totalDuration, 1.0)))
-                .stroke(style: StrokeStyle(lineWidth: 20, lineCap: .round, lineJoin: .round))
-                .foregroundColor(segmentColor(for: currentSegment(run: run).segmentType))
-                .rotationEffect(Angle(degrees: 270.0))
-            
-            VStack {
-                Text(segmentTypeString(for: currentSegment(run: run).segmentType))
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                
-                Text(timeString(time: currentSegmentTimeRemaining(run: run)))
-                    .font(.title)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                
-                Text(timeString(time: totalTimeRemaining(run: run)))
-                    .font(.headline)
-                    .foregroundColor(.white.opacity(0.8))
-            }
-        }
-        .frame(width: min(geometry.size.width, geometry.size.height) * 0.8)
-        .padding()
-    }
-    
-    private func segmentDescriptionText(run: Run) -> some View {
-        VStack(alignment: .leading, spacing: 5) {
-            ForEach(run.segments.indices, id: \.self) { index in
-                let segment = run.segments[index]
-                Text(segmentDescription(for: segment, index: index))
-                    .font(index == currentSegmentIndex ? .headline : .body)
-                    .fontWeight(index == currentSegmentIndex ? .bold : .regular)
-            }
-        }
-        .padding()
-        .background(Color.black.opacity(0.5))
-        .cornerRadius(10)
-        .padding()
-    }
-    
-    private func segmentDescription(for segment: RunSegment, index: Int) -> String {
-        let action: String
-        switch segment.segmentType {
-        case .warmUp:
-            action = "Warm up"
-        case .coolDown:
-            action = "Cool down"
-        case .run:
-            action = "Run"
-        case .walk:
-            action = "Walk"
-        }
-        
-        let duration = Int(segment.duration)
-        let minutes = duration / 60
-        let seconds = duration % 60
-        let timeString: String
-        if minutes > 0 {
-            timeString = seconds > 0 ? "\(minutes) minute(s) and \(seconds) second(s)" : "\(minutes) minute(s)"
-        } else {
-            timeString = "\(seconds) second(s)"
-        }
-        
-        let prefix = index == 0 ? "" : "Then "
-        return "\(prefix)\(action) for \(timeString)"
-    }
-    
-    private func segmentColor(for segmentType: SegmentType) -> Color {
-        switch segmentType {
-        case .warmUp, .coolDown:
-            return .yellow
-        case .run:
-            return .green
-        case .walk:
-            return .blue
-        }
-    }
-    
-    private func segmentTypeString(for segmentType: SegmentType) -> String {
+    private func segmentTypeString(for segmentType: SegmentType?) -> String {
+        guard let segmentType = segmentType else { return "READY" }
         switch segmentType {
         case .warmUp:
             return "WARM UP"
@@ -185,17 +106,20 @@ struct RunView: View {
         }
     }
     
-    private func currentSegment(run: Run) -> RunSegment {
-        run.segments[currentSegmentIndex]
+    private func currentSegment(run: Run?) -> RunSegment? {
+        guard let run = run, currentSegmentIndex < run.segments.count else { return nil }
+        return run.segments[currentSegmentIndex]
     }
     
-    private func currentSegmentTimeRemaining(run: Run) -> TimeInterval {
+    private func currentSegmentTimeRemaining(run: Run?) -> TimeInterval {
+        guard let run = run, let currentSegment = currentSegment(run: run) else { return 0 }
         let segmentStartTime = run.segments[0..<currentSegmentIndex].reduce(0) { $0 + $1.duration }
-        return max(0, currentSegment(run: run).duration - (elapsedTime - segmentStartTime))
+        return max(0, currentSegment.duration - (elapsedTime - segmentStartTime))
     }
     
-    private func totalTimeRemaining(run: Run) -> TimeInterval {
-        max(0, run.totalDuration - elapsedTime)
+    private func totalTimeRemaining(run: Run?) -> TimeInterval {
+        guard let run = run else { return 0 }
+        return max(0, run.totalDuration - elapsedTime)
     }
     
     private func toggleRunning() {
@@ -209,9 +133,9 @@ struct RunView: View {
     private func startTimer() {
         isRunning = true
         viewModel.markRunAsIncomplete(runRecord)
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
             if let run = run, elapsedTime < run.totalDuration {
-                elapsedTime += 1
+                elapsedTime += 0.1
                 updateCurrentSegment(run: run)
             } else {
                 completeRun()
@@ -255,6 +179,12 @@ struct RunView: View {
     
     private func loadRunData() {
         run = viewModel.getPredefinedRun(for: runRecord)
+    }
+    
+    private func jumpToSegment(run: Run?, index: Int) {
+        guard let run = run, index < run.segments.count else { return }
+        currentSegmentIndex = index
+        elapsedTime = run.segments[0..<index].reduce(0) { $0 + $1.duration }
     }
 }
 

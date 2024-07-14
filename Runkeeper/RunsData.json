@@ -144,10 +144,6 @@
             {
                 "type": "walk",
                 "duration": 120
-            },
-            {
-                "type": "walk",
-                "duration": 120
             }
         ]
     },
@@ -176,10 +172,6 @@
             {
                 "type": "walk",
                 "duration": 120
-            },
-            {
-                "type": "walk",
-                "duration": 120
             }
         ]
     },
@@ -204,10 +196,6 @@
             {
                 "type": "run",
                 "duration": 90
-            },
-            {
-                "type": "walk",
-                "duration": 120
             },
             {
                 "type": "walk",
