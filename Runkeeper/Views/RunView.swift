@@ -1,5 +1,7 @@
 import SwiftUI
 import SwiftData
+import CoreHaptics
+import AVFoundation
 
 struct RunView: View {
     @ObservedObject var viewModel: RunManagerViewModel
@@ -15,6 +17,10 @@ struct RunView: View {
     
     @State private var showingStopAlert = false
     
+    // Haptic engine
+    @State private var engine: CHHapticEngine?
+    
+    
     #if DEBUG
     @AppStorage("debugModeEnabled") private var debugModeEnabled = false
     #endif
@@ -29,7 +35,6 @@ struct RunView: View {
                     
                     RunProgressBar(segments: run.segments, totalDuration: run.totalDuration, elapsedTime: elapsedTime)
                         .frame(height: 160)
-                        
                     
                     Text(segmentTypeString(for: currentSegment(run: run).segmentType))
                         .font(.largeTitle)
@@ -65,7 +70,10 @@ struct RunView: View {
             .background(themeManager.backgroundGradient.ignoresSafeArea())
         }
         .navigationBarHidden(true)
-        .onAppear(perform: loadRunData)
+        .onAppear {
+            loadRunData()
+            prepareHaptics()
+        }
         .onDisappear(perform: pauseRun)
         .alert(isPresented: $showingStopAlert) {
             Alert(
@@ -179,6 +187,8 @@ struct RunView: View {
         let segmentEndTime = run.segments[0...currentSegmentIndex].reduce(0) { $0 + $1.duration }
         if elapsedTime >= segmentEndTime && currentSegmentIndex < run.segments.count - 1 {
             currentSegmentIndex += 1
+            triggerHapticFeedback()
+            SoundManager.playChimeSound()
         }
     }
     
@@ -201,6 +211,35 @@ struct RunView: View {
         guard index < run.segments.count else { return }
         currentSegmentIndex = index
         elapsedTime = run.segments[0..<index].reduce(0) { $0 + $1.duration }
+    }
+    
+    private func prepareHaptics() {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+        
+        do {
+            engine = try CHHapticEngine()
+            try engine?.start()
+        } catch {
+            print("There was an error creating the engine: \(error.localizedDescription)")
+        }
+    }
+    
+    private func triggerHapticFeedback() {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+        
+        var events = [CHHapticEvent]()
+        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1.0)
+        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 1.0)
+        let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
+        events.append(event)
+        
+        do {
+            let pattern = try CHHapticPattern(events: events, parameters: [])
+            let player = try engine?.makePlayer(with: pattern)
+            try player?.start(atTime: 0)
+        } catch {
+            print("Failed to play pattern: \(error.localizedDescription).")
+        }
     }
     
     #if DEBUG

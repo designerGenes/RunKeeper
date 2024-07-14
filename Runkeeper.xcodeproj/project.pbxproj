@@ -15,6 +15,7 @@
 		A819CBF92C440E8800871A93 /* RunProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBF82C440E8800871A93 /* RunProgressBar.swift */; };
 		A819CBFB2C4411A000871A93 /* RunSegmentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBFA2C4411A000871A93 /* RunSegmentDetailsView.swift */; };
 		A819CBFE2C44578D00871A93 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBFD2C44578D00871A93 /* UIColor+Convenience.swift */; };
+		A819CC002C445D4600871A93 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBFF2C445D4600871A93 /* SoundManager.swift */; };
 		A84E0D262C2860E100E12D8D /* RunkeeperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D252C2860E100E12D8D /* RunkeeperApp.swift */; };
 		A84E0D282C2860E100E12D8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D272C2860E100E12D8D /* ContentView.swift */; };
 		A84E0D2C2C2860E300E12D8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A84E0D2B2C2860E300E12D8D /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		A819CBF82C440E8800871A93 /* RunProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunProgressBar.swift; sourceTree = "<group>"; };
 		A819CBFA2C4411A000871A93 /* RunSegmentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunSegmentDetailsView.swift; sourceTree = "<group>"; };
 		A819CBFD2C44578D00871A93 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Convenience.swift"; sourceTree = "<group>"; };
+		A819CBFF2C445D4600871A93 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		A84E0D222C2860E100E12D8D /* Runkeeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runkeeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A84E0D252C2860E100E12D8D /* RunkeeperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunkeeperApp.swift; sourceTree = "<group>"; };
 		A84E0D272C2860E100E12D8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				A819CBF32C431F3200871A93 /* GradientGenerator.swift */,
+				A819CBFF2C445D4600871A93 /* SoundManager.swift */,
 				A84E0D3B2C28625000E12D8D /* RunManager.swift */,
 				A819CBF52C431F4600871A93 /* ThemeManager.swift */,
 			);
@@ -221,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A819CBED2C42C37500871A93 /* RunManagerViewModel.swift in Sources */,
+				A819CC002C445D4600871A93 /* SoundManager.swift in Sources */,
 				A819CBFB2C4411A000871A93 /* RunSegmentDetailsView.swift in Sources */,
 				A84E0D282C2860E100E12D8D /* ContentView.swift in Sources */,
 				A84E0D402C2862E600E12D8D /* SettingsView.swift in Sources */,

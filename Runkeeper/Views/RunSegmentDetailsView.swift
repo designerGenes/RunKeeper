@@ -69,7 +69,7 @@ struct RunSegmentDetailsView: View {
             timeString = "\(seconds) second(s)"
         }
         
-        let prefix = index == 0 ? "" : "Then "
+        let prefix = index == 0 ? "" : "then "
         return "\(prefix)\(action) for \(timeString)"
     }
 }

@@ -32,9 +32,11 @@ struct RunProgressBar: View {
         case .warmUp, .coolDown:
             return Color(uiColor: UIColor.fromHex(hex: "#FFCC66")!)
         case .run:
-            return Color(uiColor: UIColor.fromHex(hex: "#FF5733")!)
-        case .walk:
             return Color(uiColor: UIColor.fromHex(hex: "#FF9966")!)
+//            return Color(uiColor: UIColor.fromHex(hex: "#FF5733")!)
+        case .walk:
+            return Color(uiColor: UIColor.fromHex(hex: "#FFCC66")!)
+            
         }
     }
 }

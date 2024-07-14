@@ -6,6 +6,7 @@ struct SelectRunView: View {
     @EnvironmentObject private var themeManager: ThemeManager
     @Binding var showSettings: Bool
     @State private var selectedRunRecord: RunRecord?
+    @State private var scrolledToNextRun = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -14,44 +15,61 @@ struct SelectRunView: View {
                     Color(hex: 0x383232)
                         .edgesIgnoringSafeArea(.top)
                     
-                    VStack(spacing: 10) {
+                    VStack {
                         HStack {
                             Text("Lace")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
-                                .foregroundColor(themeManager.themeColor)
-                            Spacer()
+                                .foregroundColor(themeManager.themeColor.lighten(by: 0.4))
+                            
+                            Image("mountains")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: geometry.size.height * 0.2)
+                            
                             Button(action: { showSettings.toggle() }) {
                                 Image(systemName: "gear")
                                     .font(.title)
-                                    .foregroundColor(self.showSettings ? .clear : themeManager.themeColor)
+                                    .foregroundColor(self.showSettings ? .clear : themeManager.themeColor.lighten(by: 0.4))
                                     
                             }
                         }
                         .padding(.horizontal)
                         .padding(.top, geometry.safeAreaInsets.top)
                         
-                        Image("mountains")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: geometry.size.height * 0.2)
+                        
                     }
                 }
                 .frame(height: geometry.size.height * 0.3)
                 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 20) {
-                        ForEach(viewModel.runManager.runRecords.sorted { ($0.week * 10 + $0.day) < ($1.week * 10 + $1.day) }) { runRecord in
-                            RunSquare(runRecord: runRecord, isSelected: selectedRunRecord?.id == runRecord.id)
-                                .onTapGesture {
-                                    selectedRunRecord = runRecord
+                ScrollViewReader { proxy in
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20) {
+                            ForEach(viewModel.runManager.runRecords.sorted { ($0.week * 10 + $0.day) < ($1.week * 10 + $1.day) }) { runRecord in
+                                RunSquare(runRecord: runRecord, isSelected: selectedRunRecord?.id == runRecord.id)
+                                    .onTapGesture {
+                                        selectedRunRecord = runRecord
+                                    }
+                                    .id(runRecord.id)
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                    .frame(height: 100)
+                    .padding(.top, 10)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            if !scrolledToNextRun {
+                                if let nextRun = viewModel.getNextRun() {
+                                    withAnimation(.easeOut(duration: 0.3)) {
+                                        proxy.scrollTo(nextRun.id, anchor: .leading)
+                                    }
                                 }
+                                scrolledToNextRun = true
+                            }
                         }
                     }
-                    .padding(.horizontal)
                 }
-                .frame(height: 100)
-                .padding(.top, 24)
                 
                 ScrollView {
                     if let selectedRun = selectedRunRecord,
@@ -65,6 +83,7 @@ struct SelectRunView: View {
                     }
                 }
                 .frame(height: geometry.size.height * 0.35)
+                .padding(.top, 16)
                 
                 Spacer(minLength: 20)
                 
@@ -93,10 +112,19 @@ struct RunSquare: View {
     
     var body: some View {
         VStack {
-            Circle()
-                .fill(runRecord.completedDate != nil ? Color.black : Color.clear)
-                .frame(width: 40, height: 40)
-                .overlay(Circle().stroke(Color.black, lineWidth: 2))
+            ZStack {
+                Circle()
+                    .fill(runRecord.completedDate != nil ? Color.black : Color.clear)
+                    .frame(width: 40, height: 40)
+                    .overlay(Circle().stroke(Color.black, lineWidth: 2))
+                
+                if runRecord.completedDate != nil {
+                    Image(systemName: "checkmark")
+                        .foregroundColor(themeManager.themeColor.lighten(by: 0.4))
+                        .font(.system(size: 20, weight: .bold))
+                }
+            }
+            
             Text("Day \(runRecord.day)")
                 .font(.caption)
             Text("Week \(runRecord.week)")
