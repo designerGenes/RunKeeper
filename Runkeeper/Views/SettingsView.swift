@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("useMetricSystem") private var useMetricSystem = true
     @AppStorage("useAIVoice") private var useAIVoice = false
     @AppStorage("allowWidget") private var allowWidget = true
     @AppStorage("themeColorString") private var themeColorString = "blue"
@@ -32,9 +31,10 @@ struct SettingsView: View {
             
             Form {
                 Section(header: Text("Preferences")) {
-                    Toggle("Use Metric System (km)", isOn: $useMetricSystem)
-                    Toggle("Use AI Voice Encouragement", isOn: $useAIVoice)
+                    Toggle("Use AI Voice (coming soon!)", isOn: $useAIVoice)
+                        .disabled(true)
                     Toggle("Allow Widget on Home Screen", isOn: $allowWidget)
+                        
                 }
 
                 Section(header: Text("Theme")) {
@@ -61,12 +61,12 @@ struct SettingsView: View {
                 }
                 #endif
 
-                Section {
-                    Button("Upgrade to Premium") {
-                        // Implement upgrade logic here
-                    }
-                    .foregroundColor(.blue)
-                }
+//                Section {
+//                    Button("Upgrade to Premium") {
+//                        // Implement upgrade logic here
+//                    }
+//                    .foregroundColor(.blue)
+//                }
 
                 Section {
                     Button("About") {
@@ -83,6 +83,7 @@ struct SettingsView: View {
 }
 
 struct AboutView: View {
+    @EnvironmentObject private var themeManager: ThemeManager
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -90,19 +91,20 @@ struct AboutView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 100, height: 100)
-                    .foregroundColor(.blue)
+                    .foregroundColor(themeManager.themeColor.lighten(by: 0.4))
 
-                Text("Couch to 5K")
+                Text("Lace - a Zilch to 5K app")
                     .font(.largeTitle)
                     .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
 
                 Text("Version 1.0")
                     .font(.subheadline)
 
-                Text("Developed by YourCompanyName")
+                Text("Developed by DesignerGenes (Jaden Nation)")
                     .font(.headline)
 
-                Text("This app helps you go from couch potato to 5K runner in just 7 weeks!")
+                Text("This app helps you go from couch potato to 5K runner in weeks!  More features will arrive over time, so please be patient.  I made this app because charging users a monthly fee for a runkeeper app is exploitative and greedy.  We should all be able to get healthier together and not pay a subscription for it.  Thanks for using my app and please leave a review if you like it!")
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .padding()
