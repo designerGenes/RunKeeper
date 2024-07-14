@@ -15,18 +15,18 @@ struct SelectRunView: View {
                     Color(hex: 0x383232)
                         .edgesIgnoringSafeArea(.top)
                     
-                    VStack {
-                        HStack {
+                    VStack(alignment: .center) {
+                        HStack(spacing: 32) {
                             Text("Lace")
-                                .font(.largeTitle)
+                                .font(.playWright_normal(size: 72 )) // Using custom font
                                 .fontWeight(.bold)
                                 .foregroundColor(themeManager.themeColor.lighten(by: 0.4))
                             
-                            Image("mountains")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: geometry.size.height * 0.2)
-                            
+//                            Image("mountains")
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(height: geometry.size.height * 0.2)
+                            Spacer()
                             Button(action: { showSettings.toggle() }) {
                                 Image(systemName: "gear")
                                     .font(.title)
@@ -152,7 +152,7 @@ struct RunDetailsView: View {
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Color.secondary.opacity(0.1))
+//        .background(Color.secondary.opacity(0.1))
         .cornerRadius(10)
         .padding(.horizontal, 8)
     }

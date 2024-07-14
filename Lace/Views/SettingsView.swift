@@ -11,7 +11,13 @@ struct SettingsView: View {
     @EnvironmentObject private var themeManager: ThemeManager
     @Binding var showSettings: Bool
 
-    private let themeColors = ["blue", "green", "red", "purple", "orange"]
+    private let themeColors: [String: Color] = [
+        "red": .red,
+        "green": .green,
+        "blue": .blue,
+        "orange": .orange,
+        "purple": .purple
+    ]
 
     var body: some View {
         VStack {
@@ -34,25 +40,10 @@ struct SettingsView: View {
                     Toggle("Use AI Voice (coming soon!)", isOn: $useAIVoice)
                         .disabled(true)
                     Toggle("Allow Widget on Home Screen", isOn: $allowWidget)
-                        
                 }
 
-                Section(header: Text("Theme")) {
-                    Picker("Choose theme color", selection: $themeColorString) {
-                        ForEach(themeColors, id: \.self) { colorString in
-                            HStack {
-                                Circle()
-                                    .fill(Color(colorString))
-                                    .frame(width: 20, height: 20)
-                                Text(colorString.capitalized)
-                            }
-                            .tag(colorString)
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    .onChange(of: themeColorString) { _ in
-                        themeManager.objectWillChange.send()
-                    }
+                Section {
+                    themeSelector
                 }
 
                 #if DEBUG
@@ -60,13 +51,6 @@ struct SettingsView: View {
                     Toggle("DEBUG MODE", isOn: $debugModeEnabled)
                 }
                 #endif
-
-//                Section {
-//                    Button("Upgrade to Premium") {
-//                        // Implement upgrade logic here
-//                    }
-//                    .foregroundColor(.blue)
-//                }
 
                 Section {
                     Button("About") {
@@ -80,10 +64,35 @@ struct SettingsView: View {
             AboutView()
         }
     }
+
+    private var themeSelector: some View {
+        HStack {
+            Text("Theme")
+            Spacer()
+            ForEach(Array(themeColors.keys.sorted()), id: \.self) { colorName in
+                themeCircle(for: colorName)
+            }
+        }
+    }
+
+    private func themeCircle(for colorName: String) -> some View {
+        Circle()
+            .fill(themeColors[colorName] ?? .gray)
+            .frame(width: 30, height: 30)
+            .overlay(
+                Circle()
+                    .stroke(Color.white, lineWidth: themeColorString == colorName ? 2 : 0)
+            )
+            .onTapGesture {
+                themeColorString = colorName
+                themeManager.objectWillChange.send()
+            }
+    }
 }
 
 struct AboutView: View {
     @EnvironmentObject private var themeManager: ThemeManager
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -104,7 +113,7 @@ struct AboutView: View {
                 Text("Developed by DesignerGenes (Jaden Nation)")
                     .font(.headline)
 
-                Text("This app helps you go from couch potato to 5K runner in weeks!  More features will arrive over time, so please be patient.  I made this app because charging users a monthly fee for a runkeeper app is exploitative and greedy.  We should all be able to get healthier together and not pay a subscription for it.  Thanks for using my app and please leave a review if you like it!")
+                Text("This app helps you go from couch potato to 5K runner in weeks! More features will arrive over time, so please be patient. I made this app because charging users a monthly fee for a running app is exploitative and greedy. We should all be able to get healthier together and not pay a subscription for it. Thanks for using my app and please leave a review if you like it!")
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .padding()

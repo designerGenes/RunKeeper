@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A819CBED2C42C37500871A93 /* RunManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBEC2C42C37500871A93 /* RunManagerViewModel.swift */; };
-		A819CBF02C4313F300871A93 /* RunsData.json in Resources */ = {isa = PBXBuildFile; fileRef = A819CBEF2C4313F300871A93 /* RunsData.json */; };
 		A819CBF22C43144C00871A93 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBF12C43144C00871A93 /* Run.swift */; };
 		A819CBF42C431F3200871A93 /* GradientGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBF32C431F3200871A93 /* GradientGenerator.swift */; };
 		A819CBF62C431F4600871A93 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBF52C431F4600871A93 /* ThemeManager.swift */; };
@@ -16,7 +15,10 @@
 		A819CBFB2C4411A000871A93 /* RunSegmentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBFA2C4411A000871A93 /* RunSegmentDetailsView.swift */; };
 		A819CBFE2C44578D00871A93 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBFD2C44578D00871A93 /* UIColor+Convenience.swift */; };
 		A819CC002C445D4600871A93 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CBFF2C445D4600871A93 /* SoundManager.swift */; };
-		A84E0D262C2860E100E12D8D /* RunkeeperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D252C2860E100E12D8D /* RunkeeperApp.swift */; };
+		A819CC022C4491F400871A93 /* RunsData.json in Resources */ = {isa = PBXBuildFile; fileRef = A819CC012C4491F400871A93 /* RunsData.json */; };
+		A819CC042C44958D00871A93 /* PlaywritePE-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A819CC032C44958D00871A93 /* PlaywritePE-VariableFont_wght.ttf */; };
+		A819CC072C44977700871A93 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A819CC062C44977700871A93 /* UIFont+Extension.swift */; };
+		A84E0D262C2860E100E12D8D /* LaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D252C2860E100E12D8D /* LaceApp.swift */; };
 		A84E0D282C2860E100E12D8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E0D272C2860E100E12D8D /* ContentView.swift */; };
 		A84E0D2C2C2860E300E12D8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A84E0D2B2C2860E300E12D8D /* Assets.xcassets */; };
 		A84E0D2F2C2860E300E12D8D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A84E0D2E2C2860E300E12D8D /* Preview Assets.xcassets */; };
@@ -30,7 +32,6 @@
 
 /* Begin PBXFileReference section */
 		A819CBEC2C42C37500871A93 /* RunManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunManagerViewModel.swift; sourceTree = "<group>"; };
-		A819CBEF2C4313F300871A93 /* RunsData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = RunsData.json; path = Runkeeper/RunsData.json; sourceTree = SOURCE_ROOT; };
 		A819CBF12C43144C00871A93 /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		A819CBF32C431F3200871A93 /* GradientGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientGenerator.swift; sourceTree = "<group>"; };
 		A819CBF52C431F4600871A93 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
@@ -38,8 +39,12 @@
 		A819CBFA2C4411A000871A93 /* RunSegmentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunSegmentDetailsView.swift; sourceTree = "<group>"; };
 		A819CBFD2C44578D00871A93 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Convenience.swift"; sourceTree = "<group>"; };
 		A819CBFF2C445D4600871A93 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
-		A84E0D222C2860E100E12D8D /* Runkeeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runkeeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A84E0D252C2860E100E12D8D /* RunkeeperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunkeeperApp.swift; sourceTree = "<group>"; };
+		A819CC012C4491F400871A93 /* RunsData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = RunsData.json; path = Lace/RunsData.json; sourceTree = SOURCE_ROOT; };
+		A819CC032C44958D00871A93 /* PlaywritePE-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlaywritePE-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		A819CC052C4495AF00871A93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A819CC062C44977700871A93 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		A84E0D222C2860E100E12D8D /* Lace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lace.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A84E0D252C2860E100E12D8D /* LaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaceApp.swift; sourceTree = "<group>"; };
 		A84E0D272C2860E100E12D8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A84E0D2B2C2860E300E12D8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A84E0D2E2C2860E300E12D8D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -65,7 +70,8 @@
 		A819CBEE2C4313E400871A93 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				A819CBEF2C4313F300871A93 /* RunsData.json */,
+				A819CC032C44958D00871A93 /* PlaywritePE-VariableFont_wght.ttf */,
+				A819CC012C4491F400871A93 /* RunsData.json */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -85,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				A819CBFD2C44578D00871A93 /* UIColor+Convenience.swift */,
+				A819CC062C44977700871A93 /* UIFont+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -92,7 +99,7 @@
 		A84E0D192C2860E100E12D8D = {
 			isa = PBXGroup;
 			children = (
-				A84E0D242C2860E100E12D8D /* Runkeeper */,
+				A84E0D242C2860E100E12D8D /* Lace */,
 				A84E0D232C2860E100E12D8D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,24 +107,25 @@
 		A84E0D232C2860E100E12D8D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A84E0D222C2860E100E12D8D /* Runkeeper.app */,
+				A84E0D222C2860E100E12D8D /* Lace.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A84E0D242C2860E100E12D8D /* Runkeeper */ = {
+		A84E0D242C2860E100E12D8D /* Lace */ = {
 			isa = PBXGroup;
 			children = (
+				A819CC052C4495AF00871A93 /* Info.plist */,
 				A819CBFC2C44578500871A93 /* Extensions */,
 				A819CBF72C43238900871A93 /* Managers */,
 				A819CBEE2C4313E400871A93 /* Assets */,
 				A84E0D362C2860FE00E12D8D /* Views */,
 				A84E0D352C2860F900E12D8D /* Models */,
-				A84E0D252C2860E100E12D8D /* RunkeeperApp.swift */,
+				A84E0D252C2860E100E12D8D /* LaceApp.swift */,
 				A84E0D2B2C2860E300E12D8D /* Assets.xcassets */,
 				A84E0D2D2C2860E300E12D8D /* Preview Content */,
 			);
-			path = Runkeeper;
+			path = Lace;
 			sourceTree = "<group>";
 		};
 		A84E0D2D2C2860E300E12D8D /* Preview Content */ = {
@@ -155,9 +163,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A84E0D212C2860E100E12D8D /* Runkeeper */ = {
+		A84E0D212C2860E100E12D8D /* Lace */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A84E0D322C2860E300E12D8D /* Build configuration list for PBXNativeTarget "Runkeeper" */;
+			buildConfigurationList = A84E0D322C2860E300E12D8D /* Build configuration list for PBXNativeTarget "Lace" */;
 			buildPhases = (
 				A84E0D1E2C2860E100E12D8D /* Sources */,
 				A84E0D1F2C2860E100E12D8D /* Frameworks */,
@@ -167,9 +175,9 @@
 			);
 			dependencies = (
 			);
-			name = Runkeeper;
+			name = Lace;
 			productName = Runkeeper;
-			productReference = A84E0D222C2860E100E12D8D /* Runkeeper.app */;
+			productReference = A84E0D222C2860E100E12D8D /* Lace.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -187,7 +195,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A84E0D1D2C2860E100E12D8D /* Build configuration list for PBXProject "Runkeeper" */;
+			buildConfigurationList = A84E0D1D2C2860E100E12D8D /* Build configuration list for PBXProject "Lace" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -200,7 +208,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A84E0D212C2860E100E12D8D /* Runkeeper */,
+				A84E0D212C2860E100E12D8D /* Lace */,
 			);
 		};
 /* End PBXProject section */
@@ -212,7 +220,8 @@
 			files = (
 				A84E0D2F2C2860E300E12D8D /* Preview Assets.xcassets in Resources */,
 				A84E0D2C2C2860E300E12D8D /* Assets.xcassets in Resources */,
-				A819CBF02C4313F300871A93 /* RunsData.json in Resources */,
+				A819CC042C44958D00871A93 /* PlaywritePE-VariableFont_wght.ttf in Resources */,
+				A819CC022C4491F400871A93 /* RunsData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,10 +242,11 @@
 				A84E0D382C28610B00E12D8D /* RunRecord.swift in Sources */,
 				A819CBF92C440E8800871A93 /* RunProgressBar.swift in Sources */,
 				A84E0D422C28631B00E12D8D /* RunView.swift in Sources */,
+				A819CC072C44977700871A93 /* UIFont+Extension.swift in Sources */,
 				A84E0D3E2C28628800E12D8D /* SelectRunView.swift in Sources */,
 				A819CBF22C43144C00871A93 /* Run.swift in Sources */,
 				A819CBF42C431F3200871A93 /* GradientGenerator.swift in Sources */,
-				A84E0D262C2860E100E12D8D /* RunkeeperApp.swift in Sources */,
+				A84E0D262C2860E100E12D8D /* LaceApp.swift in Sources */,
 				A819CBF62C431F4600871A93 /* ThemeManager.swift in Sources */,
 				A819CBFE2C44578D00871A93 /* UIColor+Convenience.swift in Sources */,
 			);
@@ -371,10 +381,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Runkeeper/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Lace/Preview Content\"";
 				DEVELOPMENT_TEAM = 5DYJ7634L5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Lace/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -385,7 +396,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.designerGenes.Runkeeper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.designerGenes.Lace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -400,10 +411,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Runkeeper/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Lace/Preview Content\"";
 				DEVELOPMENT_TEAM = 5DYJ7634L5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Lace/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -414,7 +426,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.designerGenes.Runkeeper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.designerGenes.Lace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -425,7 +437,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A84E0D1D2C2860E100E12D8D /* Build configuration list for PBXProject "Runkeeper" */ = {
+		A84E0D1D2C2860E100E12D8D /* Build configuration list for PBXProject "Lace" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A84E0D302C2860E300E12D8D /* Debug */,
@@ -434,7 +446,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A84E0D322C2860E300E12D8D /* Build configuration list for PBXNativeTarget "Runkeeper" */ = {
+		A84E0D322C2860E300E12D8D /* Build configuration list for PBXNativeTarget "Lace" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A84E0D332C2860E300E12D8D /* Debug */,
