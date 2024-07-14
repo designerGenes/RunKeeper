@@ -7,11 +7,26 @@ struct SettingsView: View {
     @AppStorage("themeColorString") private var themeColorString = "blue"
     @State private var showingAboutSheet = false
     @EnvironmentObject private var themeManager: ThemeManager
+    @Binding var showSettings: Bool
 
     private let themeColors = ["blue", "green", "red", "purple", "orange"]
 
     var body: some View {
-        NavigationView {
+        VStack {
+            HStack {
+                Button(action: { showSettings.toggle() }) {
+                    Image(systemName: "arrow.left")
+                        .font(.title2)
+                        .foregroundColor(.primary)
+                }
+                Spacer()
+                Text("Settings")
+                    .font(.title)
+                    .fontWeight(.bold)
+                Spacer()
+            }
+            .padding()
+            
             Form {
                 Section(header: Text("Preferences")) {
                     Toggle("Use Metric System (km)", isOn: $useMetricSystem)
@@ -33,7 +48,6 @@ struct SettingsView: View {
                     }
                     .pickerStyle(MenuPickerStyle())
                     .onChange(of: themeColorString) { _ in
-                        // Trigger UI update
                         themeManager.objectWillChange.send()
                     }
                 }
@@ -51,8 +65,8 @@ struct SettingsView: View {
                     }
                 }
             }
-            .navigationTitle("Settings")
         }
+        .background(themeManager.backgroundGradient.ignoresSafeArea())
         .sheet(isPresented: $showingAboutSheet) {
             AboutView()
         }
@@ -94,6 +108,6 @@ struct AboutView: View {
 }
 
 #Preview {
-    SettingsView()
+    SettingsView(showSettings: .constant(true))
         .environmentObject(ThemeManager())
 }

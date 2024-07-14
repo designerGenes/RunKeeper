@@ -60,7 +60,7 @@ struct RunView: View {
                 Text(isRunning ? "Pause" : "Start")
                     .font(.title)
                     .padding()
-                    .frame(minWidth: 120)
+                    .frame(minWidth: 40)
                     .background(isRunning ? Color.orange : Color.green)
                     .foregroundColor(.white)
                     .cornerRadius(10)
@@ -72,7 +72,7 @@ struct RunView: View {
                 Text("Stop")
                     .font(.title)
                     .padding()
-                    .frame(minWidth: 120)
+                    .frame(minWidth: 40)
                     .background(Color.red)
                     .foregroundColor(.white)
                     .cornerRadius(10)
@@ -147,9 +147,18 @@ struct RunView: View {
             action = "Walk"
         }
         
-        let duration = Int(segment.duration / 60)
+        let duration = Int(segment.duration)
+        let minutes = duration / 60
+        let seconds = duration % 60
+        let timeString: String
+        if minutes > 0 {
+            timeString = seconds > 0 ? "\(minutes) minute(s) and \(seconds) second(s)" : "\(minutes) minute(s)"
+        } else {
+            timeString = "\(seconds) second(s)"
+        }
+        
         let prefix = index == 0 ? "" : "Then "
-        return "\(prefix)\(action) for \(duration) minute\(duration == 1 ? "" : "s")"
+        return "\(prefix)\(action) for \(timeString)"
     }
     
     private func segmentColor(for segmentType: SegmentType) -> Color {

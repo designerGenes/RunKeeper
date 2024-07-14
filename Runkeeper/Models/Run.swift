@@ -12,7 +12,7 @@ struct Run: Codable, Identifiable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        segments = try container.decode([RunSegment].self, forKey: .segments)
+        var decodedSegments = try container.decode([RunSegment].self, forKey: .segments)
         
         // Generate id, week, and day since they're not in the JSON
         id = UUID()
@@ -20,7 +20,8 @@ struct Run: Codable, Identifiable {
         day = 0   // These will be set later
 
         // Add warm-up and cool-down segments
-        segments.insert(RunSegment(segmentType: .warmUp, duration: 300), at: 0)
+        segments = [RunSegment(segmentType: .warmUp, duration: 300)]
+        segments += decodedSegments
         segments.append(RunSegment(segmentType: .coolDown, duration: 300))
     }
 
@@ -29,10 +30,6 @@ struct Run: Codable, Identifiable {
         self.week = week
         self.day = day
         self.segments = segments
-
-        // Add warm-up and cool-down segments
-        self.segments.insert(RunSegment(segmentType: .warmUp, duration: 300), at: 0)
-        self.segments.append(RunSegment(segmentType: .coolDown, duration: 300))
     }
 }
 

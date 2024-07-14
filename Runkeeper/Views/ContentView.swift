@@ -3,32 +3,28 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @StateObject private var viewModel: RunManagerViewModel
     @StateObject private var themeManager = ThemeManager()
-    @State private var selectedTab = 0
+    @State private var showSettings = false
+    
+    init(modelContext: ModelContext) {
+        let viewModel = RunManagerViewModel(modelContext: modelContext)
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     var body: some View {
-        TabView(selection: $selectedTab) {
-            NavigationView {
-                SelectRunView(viewModel: RunManagerViewModel(modelContext: modelContext))
+        NavigationView {
+            ZStack {
+                SelectRunView(viewModel: viewModel, showSettings: $showSettings)
+                    .environmentObject(themeManager)
+                    .offset(x: showSettings ? -UIScreen.main.bounds.width * 0.8 : 0)
+                
+                SettingsView(showSettings: $showSettings)
+                    .environmentObject(themeManager)
+                    .offset(x: showSettings ? 0 : UIScreen.main.bounds.width)
             }
-            .tabItem {
-                Label("Runs", systemImage: "list.bullet")
-            }
-            .tag(0)
-            
-            NavigationView {
-                SettingsView()
-            }
-            .tabItem {
-                Label("Settings", systemImage: "gear")
-            }
-            .tag(1)
+            .animation(.spring(), value: showSettings)
         }
         .environmentObject(themeManager)
     }
-}
-
-#Preview {
-    ContentView()
-        .modelContainer(for: [RunRecord.self, RunManager.self], inMemory: true)
 }
