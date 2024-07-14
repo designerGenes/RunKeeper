@@ -10,29 +10,34 @@ struct SelectRunView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                HStack {
-                    Button(action: { showSettings.toggle() }) {
-                        Image(systemName: "gear")
-                            .fixedSize()
-                            .frame(width: 24, height: 24)
-                            .font(.title)
-                            .foregroundColor(.primary)
-                            .padding()
-                            
+                ZStack {
+                    Color(hex: 0x383232)
+                        .edgesIgnoringSafeArea(.top)
+                    
+                    VStack(spacing: 10) {
+                        HStack {
+                            Text("Lace")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(themeManager.themeColor)
+                            Spacer()
+                            Button(action: { showSettings.toggle() }) {
+                                Image(systemName: "gear")
+                                    .font(.title)
+                                    .foregroundColor(self.showSettings ? .clear : themeManager.themeColor)
+                                    
+                            }
+                        }
+                        .padding(.horizontal)
+                        .padding(.top, geometry.safeAreaInsets.top)
+                        
+                        Image("mountains")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: geometry.size.height * 0.2)
                     }
-                    Spacer()
                 }
-                
-                Image("mountains")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: geometry.size.height * 0.25)
-                    .clipped()
-                    .ignoresSafeArea()
-                
-                Text("Next Up: Week \(viewModel.getNextRun()?.week ?? 1), Day \(viewModel.getNextRun()?.day ?? 1)")
-                    .font(.headline)
-                    .padding(.vertical, 10)
+                .frame(height: geometry.size.height * 0.3)
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
@@ -43,9 +48,10 @@ struct SelectRunView: View {
                                 }
                         }
                     }
-                    .padding(.horizontal, 4)
+                    .padding(.horizontal)
                 }
                 .frame(height: 100)
+                .padding(.top, 24)
                 
                 ScrollView {
                     if let selectedRun = selectedRunRecord,
@@ -58,8 +64,7 @@ struct SelectRunView: View {
                             .frame(height: 100)  // Minimum height to prevent layout shift
                     }
                 }
-                .padding(.vertical, 16)
-                .frame(height: geometry.size.height * 0.3)
+                .frame(height: geometry.size.height * 0.35)
                 
                 Spacer(minLength: 20)
                 
@@ -76,7 +81,6 @@ struct SelectRunView: View {
                 .disabled(selectedRunRecord == nil)
                 .padding(.bottom, 20)
             }
-            .frame(width: geometry.size.width, height: geometry.size.height)
             .background(themeManager.backgroundGradient.ignoresSafeArea())
         }
     }
@@ -119,15 +123,28 @@ struct RunDetailsView: View {
             }
         }
         .padding()
+        .frame(maxWidth: .infinity)
         .background(Color.secondary.opacity(0.1))
         .cornerRadius(10)
-        .padding(.horizontal)
+        .padding(.horizontal, 8)
     }
     
     private func segmentDescription(for segment: RunSegment, index: Int) -> String {
         let action = segment.segmentType == .run ? "Run" : "Walk"
         let duration = Int(segment.duration)
-        let prefix = index == 0 ? "" : (index == run.segments.count - 1 ? "And finally " : "Then ")
+        let prefix = index == 0 ? "" : "Then "
         return "\(prefix)\(action.lowercased()) for \(duration) seconds"
+    }
+}
+
+extension Color {
+    init(hex: UInt, alpha: Double = 1) {
+        self.init(
+            .sRGB,
+            red: Double((hex >> 16) & 0xff) / 255,
+            green: Double((hex >> 08) & 0xff) / 255,
+            blue: Double((hex >> 00) & 0xff) / 255,
+            opacity: alpha
+        )
     }
 }

@@ -30,11 +30,11 @@ struct RunProgressBar: View {
     private func colorForSegment(_ segmentType: SegmentType) -> Color {
         switch segmentType {
         case .warmUp, .coolDown:
-            return .blue
+            return Color(uiColor: UIColor.fromHex(hex: "#FFCC66")!)
         case .run:
-            return .green
+            return Color(uiColor: UIColor.fromHex(hex: "#FF5733")!)
         case .walk:
-            return .yellow
+            return Color(uiColor: UIColor.fromHex(hex: "#FF9966")!)
         }
     }
 }

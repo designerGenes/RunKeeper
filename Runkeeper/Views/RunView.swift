@@ -15,46 +15,56 @@ struct RunView: View {
     
     @State private var showingStopAlert = false
     
+    #if DEBUG
+    @AppStorage("debugModeEnabled") private var debugModeEnabled = false
+    #endif
+    
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 0) {
-                RunProgressBar(segments: run?.segments ?? [], totalDuration: run?.totalDuration ?? 0, elapsedTime: elapsedTime)
-                    .frame(height: 120)
-                    .padding(.top)
-                
-                VStack(spacing: 10) {
-                    Text(segmentTypeString(for: currentSegment(run: run)?.segmentType ?? .walk))
-                        .font(.system(size: 48, weight: .bold))
+            VStack(spacing: 20) {
+                if let run = run {
+                    Text("Week \(runRecord.week), Day \(runRecord.day)")
+                        .font(.headline)
+                        .padding(.top)
+                    
+                    RunProgressBar(segments: run.segments, totalDuration: run.totalDuration, elapsedTime: elapsedTime)
+                        .frame(height: 160)
+                        
+                    
+                    Text(segmentTypeString(for: currentSegment(run: run).segmentType))
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                     
                     Text(timeString(time: currentSegmentTimeRemaining(run: run)))
-                        .font(.system(size: 36, weight: .semibold))
+                        .font(.title)
+                        .fontWeight(.semibold)
                     
                     Text(timeString(time: totalTimeRemaining(run: run)))
-                        .font(.system(size: 24))
+                        .font(.headline)
+                    
+                    RunSegmentDetailsView(
+                        segments: run.segments,
+                        currentSegmentIndex: $currentSegmentIndex,
+                        onSegmentTap: { tappedIndex in
+                            jumpToSegment(run: run, index: tappedIndex)
+                        }
+                    )
+                    .frame(height: geometry.size.height * 0.3)
+                    
+                    Spacer()
+                    
+                    controlButtons
+                        .padding(.bottom)
+                } else {
+                    Text("Loading run data...")
                 }
-                .padding(.vertical)
-                
-                RunSegmentDetailsView(
-                    segments: run?.segments ?? [],
-                    currentSegmentIndex: $currentSegmentIndex,
-                    onSegmentTap: { tappedIndex in
-                        jumpToSegment(run: run, index: tappedIndex)
-                    }
-                )
-                .frame(height: geometry.size.height * 0.3)
-                
-                Spacer()
-                
-                controlButtons
-                    .padding(.bottom)
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
             .background(themeManager.backgroundGradient.ignoresSafeArea())
         }
-        .navigationTitle("Week \(runRecord.week), Day \(runRecord.day)")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(true)
         .onAppear(perform: loadRunData)
         .onDisappear(perform: pauseRun)
         .alert(isPresented: $showingStopAlert) {
@@ -72,7 +82,7 @@ struct RunView: View {
     }
     
     private var controlButtons: some View {
-        HStack(spacing: 50) {
+        HStack(spacing: 20) {
             Button(action: toggleRunning) {
                 Image(systemName: isRunning ? "pause.fill" : "play.fill")
                     .font(.system(size: 40))
@@ -86,14 +96,23 @@ struct RunView: View {
                     .font(.system(size: 40))
                     .foregroundColor(.primary)
             }
+            
+            #if DEBUG
+            if debugModeEnabled {
+                Button(action: finishEarly) {
+                    Image(systemName: "clock.fill")
+                        .font(.system(size: 40))
+                        .foregroundColor(.primary)
+                }
+            }
+            #endif
         }
         .padding()
-        .background(Color.black.opacity(0.1))
+        .background(Color.secondary.opacity(0.2))
         .cornerRadius(15)
     }
     
-    private func segmentTypeString(for segmentType: SegmentType?) -> String {
-        guard let segmentType = segmentType else { return "READY" }
+    private func segmentTypeString(for segmentType: SegmentType) -> String {
         switch segmentType {
         case .warmUp:
             return "WARM UP"
@@ -106,20 +125,17 @@ struct RunView: View {
         }
     }
     
-    private func currentSegment(run: Run?) -> RunSegment? {
-        guard let run = run, currentSegmentIndex < run.segments.count else { return nil }
-        return run.segments[currentSegmentIndex]
+    private func currentSegment(run: Run) -> RunSegment {
+        run.segments[currentSegmentIndex]
     }
     
-    private func currentSegmentTimeRemaining(run: Run?) -> TimeInterval {
-        guard let run = run, let currentSegment = currentSegment(run: run) else { return 0 }
+    private func currentSegmentTimeRemaining(run: Run) -> TimeInterval {
         let segmentStartTime = run.segments[0..<currentSegmentIndex].reduce(0) { $0 + $1.duration }
-        return max(0, currentSegment.duration - (elapsedTime - segmentStartTime))
+        return max(0, currentSegment(run: run).duration - (elapsedTime - segmentStartTime))
     }
     
-    private func totalTimeRemaining(run: Run?) -> TimeInterval {
-        guard let run = run else { return 0 }
-        return max(0, run.totalDuration - elapsedTime)
+    private func totalTimeRemaining(run: Run) -> TimeInterval {
+        max(0, run.totalDuration - elapsedTime)
     }
     
     private func toggleRunning() {
@@ -181,11 +197,18 @@ struct RunView: View {
         run = viewModel.getPredefinedRun(for: runRecord)
     }
     
-    private func jumpToSegment(run: Run?, index: Int) {
-        guard let run = run, index < run.segments.count else { return }
+    private func jumpToSegment(run: Run, index: Int) {
+        guard index < run.segments.count else { return }
         currentSegmentIndex = index
         elapsedTime = run.segments[0..<index].reduce(0) { $0 + $1.duration }
     }
+    
+    #if DEBUG
+    private func finishEarly() {
+        completeRun()
+        presentationMode.wrappedValue.dismiss()
+    }
+    #endif
 }
 
 extension Run {

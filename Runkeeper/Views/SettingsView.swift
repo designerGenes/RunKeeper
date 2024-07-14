@@ -5,6 +5,9 @@ struct SettingsView: View {
     @AppStorage("useAIVoice") private var useAIVoice = false
     @AppStorage("allowWidget") private var allowWidget = true
     @AppStorage("themeColorString") private var themeColorString = "blue"
+    #if DEBUG
+    @AppStorage("debugModeEnabled") private var debugModeEnabled = false
+    #endif
     @State private var showingAboutSheet = false
     @EnvironmentObject private var themeManager: ThemeManager
     @Binding var showSettings: Bool
@@ -51,6 +54,12 @@ struct SettingsView: View {
                         themeManager.objectWillChange.send()
                     }
                 }
+
+                #if DEBUG
+                Section(header: Text("Debug Options")) {
+                    Toggle("DEBUG MODE", isOn: $debugModeEnabled)
+                }
+                #endif
 
                 Section {
                     Button("Upgrade to Premium") {
