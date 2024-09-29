@@ -21,11 +21,6 @@ struct SelectRunView: View {
                                 .font(.playWright_normal(size: 72 )) // Using custom font
                                 .fontWeight(.bold)
                                 .foregroundColor(themeManager.themeColor.lighten(by: 0.4))
-                            
-//                            Image("mountains")
-//                                .resizable()
-//                                .scaledToFit()
-//                                .frame(height: geometry.size.height * 0.2)
                             Spacer()
                             Button(action: { showSettings.toggle() }) {
                                 Image(systemName: "gear")

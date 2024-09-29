@@ -39,7 +39,8 @@ struct SettingsView: View {
                 Section(header: Text("Preferences")) {
                     Toggle("Use AI Voice (coming soon!)", isOn: $useAIVoice)
                         .disabled(true)
-                    Toggle("Allow Widget on Home Screen", isOn: $allowWidget)
+                    Toggle("Allow Widget on Home Screen (coming soon!)", isOn: $allowWidget)
+                        .disabled(true)
                 }
 
                 Section {
@@ -113,7 +114,7 @@ struct AboutView: View {
                 Text("Developed by DesignerGenes (Jaden Nation)")
                     .font(.headline)
 
-                Text("This app helps you go from couch potato to 5K runner in weeks! More features will arrive over time, so please be patient. I made this app because charging users a monthly fee for a running app is exploitative and greedy. We should all be able to get healthier together and not pay a subscription for it. Thanks for using my app and please leave a review if you like it!")
+                Text("This app helps you go from couch potato to 5K runner in weeks! More features will arrive over time, so please be patient.")
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .padding()
